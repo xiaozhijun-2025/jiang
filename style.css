@@ -1,0 +1,360 @@
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; font-family: "Microsoft YaHei", Arial, sans-serif; }
+
+.app { width: 100%; height: 100%; display: flex; flex-direction: column; }
+.top-bar {
+  height: 56px; display: flex; align-items: center; justify-content: center;
+  padding: 0 16px; border-bottom: 1px solid #e5e7eb; background: #105881;
+  position: relative;
+}
+.top-bar h2 { margin: 0; font-size: 20px; }
+.tag { 
+  background: #67c23a; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 12px;
+  position: absolute; right: 16px;
+}
+
+.main-content { flex: 1; display: flex; overflow: hidden; }
+.map-section { flex: 1; position: relative; }
+#cesiumContainer { width: 100%; height: 100%; }
+
+.map-tools {
+  position: absolute; top: 12px; left: 12px; z-index: 10; display: flex; gap: 8px;
+}
+.map-tools button {
+  border: 1px solid #dcdfe6; background: #fff; padding: 8px 12px; border-radius: 6px; cursor: pointer;
+}
+.map-tools button:hover { background: #f2f6fc; }
+
+.layer-select {
+  padding: 8px 12px;
+  border: 1px solid #dcdfe6;
+  border-radius: 6px;
+  background: white;
+  font-size: 14px;
+  margin-right: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.layer-select:hover {
+  border-color: #409eff;
+}
+
+.layer-select option {
+  padding: 8px;
+}
+
+/* 搜索框样式 */
+.search-box {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  background: white;
+  border: 1px solid #dcdfe6;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#searchInput {
+  padding: 8px 12px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 200px;
+}
+
+#searchBtn {
+  padding: 8px 16px;
+  background: #409eff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+#searchBtn:hover {
+  background: #66b1ff;
+}
+
+#searchBtn:active {
+  background: #3a8ee6;
+}
+
+.side-panel {
+  width: 360px; border-left: 1px solid #e5e7eb; background: #fafafa; padding: 10px; overflow: auto;
+}
+.card {
+  background: #fff; border: 1px solid #ebeef5; border-radius: 8px; padding: 12px; margin-bottom: 10px;
+}
+.card h3 { margin: 0 0 10px 0; font-size: 16px; }
+.card p { margin: 8px 0; font-size: 14px; }
+
+#chart { width: 100%; height: 280px; }
+
+/* 上传控件样式 */
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.upload-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.upload-item label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.upload-item input[type="file"] {
+  padding: 6px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.upload-status {
+  font-size: 12px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.upload-btn {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: #409eff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.upload-btn:hover {
+  background: #66b1ff;
+}
+
+.upload-btn:active {
+  background: #3a8ee6;
+}
+
+/* 项目管理模块样式 */
+.project-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-info p {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #67c23a;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.repair-records {
+  margin-top: 8px;
+}
+
+.repair-records h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.record-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-date {
+  font-size: 12px;
+  color: #666;
+  min-width: 80px;
+}
+
+.record-content {
+  font-size: 12px;
+  color: #333;
+  flex: 1;
+  margin-left: 8px;
+}
+
+/* 登录模态框样式 */
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.close {
+  font-size: 24px;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #409eff;
+  box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+}
+
+.form-group.remember {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-group.remember input {
+  width: auto;
+  margin-right: 8px;
+}
+
+.form-error {
+  color: #f56c6c;
+  font-size: 12px;
+  margin-bottom: 16px;
+  min-height: 16px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #409eff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background: #66b1ff;
+}
+
+.login-btn:active {
+  background: #3a8ee6;
+}
+
+/* 用户信息区域 */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: absolute;
+  right: 16px;
+}
+
+#userName {
+  color: white;
+  font-size: 14px;
+}
+
+.logout-btn {
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

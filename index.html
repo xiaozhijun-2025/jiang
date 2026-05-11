@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="shortcut icon" href="./ico/log.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>矿山生态修复监测可视化分析平台</title>
+ <link rel="stylesheet" href="./cesium/Build/Cesium/Widgets/widgets.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- 登录模态框 -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>用户登录</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="text" id="username" placeholder="请输入用户名" required />
+          </div>
+          <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" id="password" placeholder="请输入密码" required />
+          </div>
+          <div class="form-group remember">
+            <input type="checkbox" id="remember" />
+            <label for="remember">记住我</label>
+          </div>
+          <div class="form-error" id="loginError"></div>
+          <button type="submit" class="login-btn">登录</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="app" id="app" style="display: none;">
+    <header class="top-bar">
+      <h2>矿山生态修复监测可视化分析平台</h2>
+      <div class="user-info">
+        <span id="userName">用户</span>
+        <button id="btnLogout" class="logout-btn">退出</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="map-section">
+        <div id="cesiumContainer"></div>
+
+        <div class="map-tools">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索地点..." />
+            <button id="searchBtn">搜索</button>
+          </div>
+          <select id="mapLayerSelect" class="layer-select">
+            <option value="street">街道地图</option>
+            <option value="satellite">卫星影像</option>
+            <option value="topo">地形图</option>
+          </select>
+          <button id="btnBefore">显示修复前</button>
+          <button id="btnAfter">显示修复后</button>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <div class="card">
+          <h3>矿山自然环境详情</h3>
+          <p><b>当前阶段：</b><span id="stageText">修复前</span></p>
+          <p><b>矿山名称：</b><span id="name"></span></p>
+          <p><b>位置：</b><span id="location"></span></p>
+          <p><b>海拔：</b><span id="altitude"></span></p>
+          <p><b>年降雨量：</b><span id="rainfall"></span></p>
+          <p><b>坡度：</b><span id="slope"></span></p>
+          <p><b>植被覆盖率：</b><span id="vegetation"></span></p>
+          <p><b>水质等级：</b><span id="waterQuality"></span></p>
+        </div>
+
+        <div class="card">
+          <h3>生态指标前后对比</h3>
+          <div id="chart"></div>
+        </div>
+
+        <div class="card">
+          <h3>三维模型导入</h3>
+          <div class="upload-section">
+            <div class="upload-item">
+              <label for="beforeModel">修复前模型</label>
+              <input type="file" id="beforeModel" accept=".json,.b3dm,.pnts,.i3dm,.cmpt,.osgb,.obj,.glb,.gltf" multiple directory webkitdirectory mozdirectory />
+              <span id="beforeModelStatus" class="upload-status"></span>
+            </div>
+            <div class="upload-item">
+              <label for="afterModel">修复后模型</label>
+              <input type="file" id="afterModel" accept=".json,.b3dm,.pnts,.i3dm,.cmpt,.osgb,.obj,.glb,.gltf" multiple directory webkitdirectory mozdirectory />
+              <span id="afterModelStatus" class="upload-status"></span>
+            </div>
+            <button id="btnUpload" class="upload-btn">上传模型</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>项目管理与修复记录</h3>
+          <div class="project-section">
+            <div class="project-info">
+              <p><b>项目名称：</b><span id="projectName">XX矿山生态修复工程</span></p>
+              <p><b>开始日期：</b><span id="startDate">2023-01-15</span></p>
+              <p><b>预计完成：</b><span id="endDate">2025-12-31</span></p>
+              <p><b>当前进度：</b><span id="progress">65%</span></p>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 65%"></div>
+            </div>
+            <div class="repair-records">
+              <h4>修复记录</h4>
+              <div class="record-item">
+                <span class="record-date">2024-04-01</span>
+                <span class="record-content">完成植被恢复第一阶段</span>
+              </div>
+              <div class="record-item">
+                <span class="record-date">2024-03-15</span>
+                <span class="record-content">完成土壤重构工程</span>
+              </div>
+              <div class="record-item">
+                <span class="record-date">2024-02-20</span>
+                <span class="record-content">完成地质稳定性修复</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="./cesium/Build/Cesium/Cesium.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
